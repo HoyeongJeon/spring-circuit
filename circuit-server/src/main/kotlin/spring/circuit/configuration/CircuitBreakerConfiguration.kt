@@ -13,9 +13,9 @@ class CircuitBreakerConfiguration() {
     private fun circuitBreakerConfig(): CircuitBreakerConfig {
         return CircuitBreakerConfig.custom()
             .failureRateThreshold(15.0f) // circuit 작동 임계값 : 15%, 20%, 25%
-            .minimumNumberOfCalls(10)
+            .minimumNumberOfCalls(5)
             .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
-            .slidingWindowSize(1000)
+            .slidingWindowSize(50)
             .recordExceptions(HttpServerErrorException::class.java)
             .ignoreExceptions(
                 HttpClientErrorException::class.java,
@@ -25,6 +25,8 @@ class CircuitBreakerConfiguration() {
 
     @Bean
     fun circuitBreakerRegistry(): CircuitBreakerRegistry {
-        return CircuitBreakerRegistry.of(circuitBreakerConfig())
+        return CircuitBreakerRegistry.of(circuitBreakerConfig()).also {
+            it.circuitBreaker("circuit-breaker").reset()
+        }
     }
 }

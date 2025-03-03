@@ -115,10 +115,23 @@ class CircuitBreakerService(
 
 **15%**
 
+![Image](https://github.com/user-attachments/assets/f497cef8-3ded-40ba-865a-cdfb69173a23)
+
+![Image](https://github.com/user-attachments/assets/fdd36612-5e44-41c0-9798-282f84fd13af)
+
+(Circuit Breaker 가 열리기 전 52개의 로그를 검사한 결과, 8번의 500 에러가 발생했으므로 실패율은 15.38%이다.)
+임계점을 넘기니 Circuit Breaker가 열리고, 응답이 Circuit Breaker가 열렸다는 메시지로 변경된다.(CallNotPermittedException이 발생)
+
 
 **20%**
+
+![Image](https://github.com/user-attachments/assets/85a513bb-4f2a-4ae9-87fe-9f4cfc69932b)
+
+실패율이 20%를 넘기지 않아 Circuit Breaker가 열리지 않았다.
 
 
 **25%**
 
+![Image](https://github.com/user-attachments/assets/51aa1028-09b9-4a67-9c41-234077d483d6)
 
+실패율이 25%를 넘겨 Circuit Breaker가 열렸다.
