@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: circuit
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        failureRateThreshold: 25
+        minimumNumberOfCalls: 5
+        slidingWindowSize: 50
+        permittedNumberOfCallsInHalfOpenState: 5
+        recordExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+        ignoreExceptions:
+          - org.springframework.web.client.HttpClientErrorException
+    instances:
+      circuitBreaker:
+        baseConfig: default
